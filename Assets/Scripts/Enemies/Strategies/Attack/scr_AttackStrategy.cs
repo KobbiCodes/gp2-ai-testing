@@ -1,11 +1,8 @@
 using System;
 using UnityEngine;
 
-public class AttackStrategy : AStrategy
+public abstract class AttackStrategy : MonoBehaviour
 {
+    public abstract void Execute(IEnemyTarget target);
 
-    public override void Execute()
-    {   
-        Debug.Log("Test Execute on Attack");
-    }
 }

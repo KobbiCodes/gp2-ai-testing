@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AttackAimThenFire : AttackStrategy
 {
@@ -9,39 +10,59 @@ public class AttackAimThenFire : AttackStrategy
     protected GameObject cannon;
     
     [SerializeField]
-    protected float cannonRotationSpeed;
+    protected float cannonRotationSpeed = 20f;
     [SerializeField]
     protected GameObject projectile;
     
+    [FormerlySerializedAs("startFireRate")] [SerializeField]
+    protected float startFireRange = 6f;
     [SerializeField]
-    protected float startFireRate = 10f;
-    [SerializeField]
-    protected float stopFireRate = 15f;
-    
+    protected float stopFireRate = 9f;
     [SerializeField]
     protected Timer fireCooldown;
 
-    void Start()
+    bool _fireReady = true;
+
+
+    void OnEnable()
     {
-        if (stopFireRate < startFireRate)
-        {
-            Debug.LogWarning("stopFireRate cannot be smaller than startFireRate. Defaulting stopFireRate to startFireRate + 5");
-            stopFireRate = startFireRate + 5;
-        }
+        fireCooldown.timerDone += EnableFire;
+    }
+    
+    void OnDisable()
+    {
+        fireCooldown.timerDone -= EnableFire;
     }
 
-    private void OnDrawGizmos()
+    void Start()
+    {
+        if (stopFireRate < startFireRange)
+        {
+            Debug.LogWarning("stopFireRate cannot be smaller than startFireRate. Defaulting stopFireRate to startFireRate + 5");
+            stopFireRate = startFireRange + 5;
+        }
+
+        _fireReady = true;
+        
+    }
+
+    protected void OnDrawGizmos()
     {
         Gizmos.color = new Color(1f, 0.2f, 0.1f, 0.8f);
-        Gizmos.DrawWireSphere(transform.position, startFireRate);
+        Gizmos.DrawWireSphere(transform.position, startFireRange);
         Gizmos.color = new Color(1f, 0.6f, 0.1f, 0.8f);
         Gizmos.DrawWireSphere(transform.position, stopFireRate);
     }
     
-    public override void Execute()
+    public override void Execute(IEnemyTarget target)
     {   
         //TODO: Implement
         throw new NotImplementedException();
+    }
+
+    void EnableFire()
+    {
+        _fireReady = true;
     }
 
 }

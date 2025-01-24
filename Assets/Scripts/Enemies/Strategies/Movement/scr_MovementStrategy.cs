@@ -1,11 +1,8 @@
 using UnityEngine;
 
-public class MovementStrategy : AStrategy
+public abstract class MovementStrategy : MonoBehaviour
 {
-    
-    public override void Execute()
-    {   
-        Debug.Log("Test Execute on Movement");
-    }
+
+    public abstract void Execute(Transform position);
     
 }

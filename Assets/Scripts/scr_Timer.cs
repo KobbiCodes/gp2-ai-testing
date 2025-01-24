@@ -9,7 +9,6 @@ public class Timer : MonoBehaviour
     //TODO: Setter and getter for these two.
     [SerializeField]
     protected float timerDuration = 5f;
-    [SerializeField]
     protected float currentTime = 0f; 
     
     
@@ -29,8 +28,11 @@ public class Timer : MonoBehaviour
     
     void TriggerTimer()
     {
-        currentTime -= timerDuration;
+       // currentTime -= timerDuration;
         timerDone?.Invoke();
+        _paused = true;
+        currentTime = 0f;
+        
     }
 
     public void Start()
