@@ -20,7 +20,7 @@ public class MoveApproach : MovementStrategy
         Gizmos.DrawWireSphere(transform.position, stopWhenWithin);
     }
     
-    public override void Execute(Transform position)
+    public override void Execute(AEnemy enemy)
     {   
         throw new System.NotImplementedException();
     }

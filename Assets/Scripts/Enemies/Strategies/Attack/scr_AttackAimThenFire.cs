@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class AttackAimThenFire : AttackStrategy
 {
@@ -13,6 +14,8 @@ public class AttackAimThenFire : AttackStrategy
     protected float cannonRotationSpeed = 20f;
     [SerializeField]
     protected GameObject projectile;
+    [SerializeField]
+    protected float projectileSpeed = 4f;
     
     [FormerlySerializedAs("startFireRate")] [SerializeField]
     protected float startFireRange = 6f;
@@ -22,6 +25,7 @@ public class AttackAimThenFire : AttackStrategy
     protected Timer fireCooldown;
 
     bool _fireReady = true;
+    GameObject _target = null;
 
 
     void OnEnable()
@@ -42,7 +46,7 @@ public class AttackAimThenFire : AttackStrategy
             stopFireRate = startFireRange + 5;
         }
 
-        _fireReady = true;
+        _fireReady = false;
         
     }
 
@@ -54,15 +58,66 @@ public class AttackAimThenFire : AttackStrategy
         Gizmos.DrawWireSphere(transform.position, stopFireRate);
     }
     
-    public override void Execute(IEnemyTarget target)
-    {   
-        //TODO: Implement
-        throw new NotImplementedException();
+    public override void Execute(AEnemy enemy)
+    {
+        var targetIsValid = _target != null && _target.activeSelf;
+
+        if (targetIsValid)
+        {
+            Aim(enemy);
+            if (_fireReady) Shoot(enemy);
+        }
+        else { GetClosestTarget(enemy); }
+        
     }
 
     void EnableFire()
     {
         _fireReady = true;
+    }
+
+    void GetClosestTarget(AEnemy enemy)
+    {
+        var distanceToClosest = 999f;
+                
+        foreach (var target in AEnemy.Targets)
+        {
+            var distance = Vector3.Distance(target.transform.position, enemy.transform.position);
+            if (distance < distanceToClosest)
+            {
+                //TODO: Check visibility.
+                distanceToClosest = distance;
+                _target = target;
+                _fireReady = false;
+                EnterFireCooldown();
+            }
+        } 
+    }
+
+    void Aim(AEnemy enemy)
+    {
+        //TODO: Do this:
+        //Step 1: Figure out how to do this :sob: 
+    }
+
+    void Shoot(AEnemy enemy)
+    {
+        //TODO: This would benefit from projectile pooling.
+        Projectile newProj = Instantiate(
+            original: projectile, 
+            cannon.transform.position,
+            Quaternion.identity
+        ).GetComponent<Projectile>();
+        newProj.Speed = projectileSpeed;
+        newProj.Direction = (_target.transform.position - cannon.transform.position).normalized;
+        
+        EnterFireCooldown();
+    }
+
+    void EnterFireCooldown()
+    {
+        _fireReady = false;
+        fireCooldown.Restart();
     }
 
 }

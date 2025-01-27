@@ -3,6 +3,6 @@ using UnityEngine;
 
 public abstract class AttackStrategy : MonoBehaviour
 {
-    public abstract void Execute(IEnemyTarget target);
+    public abstract void Execute(AEnemy enemy);
 
 }

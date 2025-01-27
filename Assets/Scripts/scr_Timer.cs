@@ -56,6 +56,12 @@ public class Timer : MonoBehaviour
         currentTime = 0f;
     }
 
+    public void Restart()
+    {
+        Reset();
+        Start();
+    }
+
 
 
 }
