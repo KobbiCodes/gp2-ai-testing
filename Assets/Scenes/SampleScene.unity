@@ -714,6 +714,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Projectile
       objectReference: {fileID: 0}
+    - target: {fileID: 2011429819786973770, guid: efcae58579bd68c4eb76ab34cebcbe8e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2924132580175778375, guid: efcae58579bd68c4eb76ab34cebcbe8e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0994463
@@ -932,25 +936,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3411586032801696154, guid: 763760365571b75488d478d31313bf4f, type: 3}
-      propertyPath: m_Height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3411586032801696154, guid: 763760365571b75488d478d31313bf4f, type: 3}
-      propertyPath: m_BaseOffset
-      value: -1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3411586032801696154, guid: 763760365571b75488d478d31313bf4f, type: 3}
-      propertyPath: m_ObstacleAvoidanceType
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 5834757730312567366, guid: 763760365571b75488d478d31313bf4f, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7048755419331652631, guid: 763760365571b75488d478d31313bf4f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7927564798449171508, guid: 763760365571b75488d478d31313bf4f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1011,7 +999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4588073525815910783, guid: 9d919b1b13bf139408b0a27e7f50ec4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0994463
+      value: 1.072
       objectReference: {fileID: 0}
     - target: {fileID: 4588073525815910783, guid: 9d919b1b13bf139408b0a27e7f50ec4c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1019,7 +1007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4588073525815910783, guid: 9d919b1b13bf139408b0a27e7f50ec4c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.618
+      value: -6.15
       objectReference: {fileID: 0}
     - target: {fileID: 4588073525815910783, guid: 9d919b1b13bf139408b0a27e7f50ec4c, type: 3}
       propertyPath: m_LocalRotation.w

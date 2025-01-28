@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
         get => _direction;
         set {
             _direction = value.normalized;
-            _target = transform.position + (_direction * 200f);
+            _target = transform.position + (_direction);
         }
     }
     
@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
 
     public void FixedUpdate()
     {
-        Vector3.MoveTowards(transform.position, _target, _speed * Time.fixedDeltaTime);
+        Vector3.MoveTowards(transform.position, _target, _speed);
     }
     
     

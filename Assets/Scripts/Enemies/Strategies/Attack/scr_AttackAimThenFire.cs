@@ -24,7 +24,8 @@ public class AttackAimThenFire : AttackStrategy
     [SerializeField]
     protected Timer fireCooldown;
 
-    bool _fireReady = true;
+    bool _fireReady = false;
+    private bool _targetInFireRange = false;
     GameObject _target = null;
 
 
@@ -60,12 +61,33 @@ public class AttackAimThenFire : AttackStrategy
     
     public override void Execute(AEnemy enemy)
     {
-        var targetIsValid = _target != null && _target.activeSelf;
+        var targetIsValid = _target && _target.activeSelf;
+        var distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
 
         if (targetIsValid)
         {
-            Aim(enemy);
-            if (_fireReady) Shoot(enemy);
+            //TODO: Refactor this out of being spaghetti ala marinara
+            if (_targetInFireRange)
+            {
+                if (distanceToTarget > stopFireRate)
+                {
+                    _targetInFireRange = false;
+                }
+                else
+                {
+                    Aim(enemy);
+                    if (_fireReady) Shoot(enemy);
+                }
+            }
+            else
+            {
+                if (distanceToTarget < startFireRange)
+                {
+                    _targetInFireRange = true;
+                    EnterFireCooldown();
+                }
+            }
+
         }
         else { GetClosestTarget(enemy); }
         
@@ -85,11 +107,9 @@ public class AttackAimThenFire : AttackStrategy
             var distance = Vector3.Distance(target.transform.position, enemy.transform.position);
             if (distance < distanceToClosest)
             {
-                //TODO: Check visibility.
+                //TODO: Check visibility?
                 distanceToClosest = distance;
                 _target = target;
-                _fireReady = false;
-                EnterFireCooldown();
             }
         } 
     }

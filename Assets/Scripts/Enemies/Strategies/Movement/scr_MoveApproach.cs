@@ -22,6 +22,6 @@ public class MoveApproach : MovementStrategy
     
     public override void Execute(AEnemy enemy)
     {   
-        throw new System.NotImplementedException();
+       // throw new System.NotImplementedException();
     }
 }
