@@ -2,14 +2,6 @@ using UnityEngine;
 
 public class MoveApproach : MovementStrategy
 {
-
-    [SerializeField] protected GameObject moveTarget;
-    
-    [SerializeField] protected float speed = 1f;
-    [SerializeField] protected float accelaration = 0.05f;
-    
-    [SerializeField] protected float turnSpeed = 20f;
-    [SerializeField] protected float turnAcceleration = 4f;
     
     [SerializeField] protected float stopWhenWithin = 6.2f;
     
@@ -22,6 +14,10 @@ public class MoveApproach : MovementStrategy
     
     public override void Execute(AEnemy enemy)
     {   
-       // throw new System.NotImplementedException();
+       //Move towards closest target:
+       //Step 1: Determine closest target.
+       //Step 2: Take into account maximum approach
+       //Step 3: Raycast into the navmesh.
+       //Step 4: Profit.
     }
 }
