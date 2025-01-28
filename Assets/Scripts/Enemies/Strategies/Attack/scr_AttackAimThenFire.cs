@@ -62,10 +62,11 @@ public class AttackAimThenFire : AttackStrategy
     public override void Execute(AEnemy enemy)
     {
         var targetIsValid = _target && _target.activeSelf;
-        var distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
+        
 
         if (targetIsValid)
         {
+            var distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
             //TODO: Refactor this out of being spaghetti ala marinara
             if (_targetInFireRange)
             {
