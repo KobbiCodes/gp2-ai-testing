@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class AEnemy : MonoBehaviour
 {
@@ -14,15 +15,28 @@ public abstract class AEnemy : MonoBehaviour
     
 #endregion
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Start is called once before the first execution of Update after the MonoBehaviour is 
     [SerializeField]
-    protected List<AttackStrategy> attackStrats;
-    [SerializeField]
-    protected List<MovementStrategy> moveStrats;
+    protected float perceptionRadius = 12f;
     
-    protected virtual void OnEnable()
+    public float PerceptionRadius { get => perceptionRadius; }
+
+    [SerializeField]
+    protected NavMeshAgent agent;
+    
+    public NavMeshAgent Agent { get => agent; }
+    
+    [SerializeField]
+    protected List<AttackStrategy> attackStrats = new List<AttackStrategy>();
+    [SerializeField]
+    protected List<MovementStrategy> moveStrats = new List<MovementStrategy>();
+    
+    
+    
+    protected void OnDrawGizmosSelected()
     {
-        
+        Gizmos.color = new Color(1f, 1f, 1f, 0.6f);
+        Gizmos.DrawWireSphere(transform.position, perceptionRadius);
     }
     
     // Update is called once per frame

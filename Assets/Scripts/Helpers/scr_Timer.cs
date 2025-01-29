@@ -6,6 +6,8 @@ public class Timer : MonoBehaviour
     public delegate void OnTimerDone();
     public event OnTimerDone timerDone;
     
+    [SerializeField]
+    protected string timerName = "Timer";
     //TODO: Setter and getter for these two.
     [SerializeField]
     protected float timerDuration = 5f;

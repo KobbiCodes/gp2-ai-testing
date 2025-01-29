@@ -17,7 +17,7 @@ public class AttackAimThenFire : AttackStrategy
     [SerializeField]
     protected float projectileSpeed = 4f;
     
-    [FormerlySerializedAs("startFireRate")] [SerializeField]
+    [SerializeField]
     protected float startFireRange = 6f;
     [SerializeField]
     protected float stopFireRate = 9f;
@@ -51,7 +51,7 @@ public class AttackAimThenFire : AttackStrategy
         
     }
 
-    protected void OnDrawGizmos()
+    protected void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(1f, 0.2f, 0.1f, 0.8f);
         Gizmos.DrawWireSphere(transform.position, startFireRange);
@@ -101,7 +101,7 @@ public class AttackAimThenFire : AttackStrategy
 
     void GetClosestTarget(AEnemy enemy)
     {
-        var distanceToClosest = 999f;
+        var distanceToClosest = enemy.PerceptionRadius;
                 
         foreach (var target in AEnemy.Targets)
         {

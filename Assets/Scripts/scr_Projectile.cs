@@ -4,9 +4,10 @@ using UnityEngine.UIElements;
 
 public class Projectile : MonoBehaviour
 {
-    private float _speed;
-    private Vector3 _direction;
-    private Vector3 _target;
+    protected float _speed;
+    protected Vector3 _direction;
+    protected Vector3 _target;
+    
 
     public float Speed
     {
@@ -19,7 +20,7 @@ public class Projectile : MonoBehaviour
         get => _direction;
         set {
             _direction = value.normalized;
-            _target = transform.position + (_direction);
+            _target = transform.position + (_direction * 200f);
         }
     }
     
@@ -28,11 +29,12 @@ public class Projectile : MonoBehaviour
         _direction = Vector3.zero;
         _speed = 0f;
         _target = Vector3.zero;
+        transform.LookAt(_target);
     }
 
-    public void FixedUpdate()
+    public virtual void FixedUpdate()
     {
-        Vector3.MoveTowards(transform.position, _target, _speed);
+        transform.position = Vector3.MoveTowards(transform.position, _target, _speed * Time.fixedDeltaTime);
     }
     
     
