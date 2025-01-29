@@ -22,8 +22,7 @@ public class MoveApproach : MovementStrategy
         {
             
             var distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
-            Debug.Log(distanceToTarget);
-            Debug.Log(stopWhenWithin);
+
             if (distanceToTarget > enemy.PerceptionRadius) { _target = null; }
             else if (distanceToTarget > stopWhenWithin) //keep target but don't move
             {

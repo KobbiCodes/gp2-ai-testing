@@ -12,6 +12,8 @@ public class AttackExplode : AttackStrategy
     protected Timer chargeUpTimer;
     [SerializeField]
     protected Timer windDownTimer;
+    [SerializeField]
+    protected ParticleSystem boom;
     
     bool _isChargingExplosion = false;
     bool _isWindingDown = false;
@@ -22,6 +24,8 @@ public class AttackExplode : AttackStrategy
     {
         chargeUpTimer.timerDone += Explode;
         windDownTimer.timerDone += EnableExplosion;
+        chargeUpTimer.Stop();
+        windDownTimer.Stop();
 
     }
     
@@ -46,19 +50,15 @@ public class AttackExplode : AttackStrategy
     {
         //throw new System.NotImplementedException();
 
-        if (_isWindingDown && _isChargingExplosion) return;
+        if (_isWindingDown || _isChargingExplosion) return;
 
-        var targetInRange = false;
-        foreach (var target in AEnemy.Targets)
+        if (_target && _target.activeSelf && Vector3.Distance(transform.position, _target.transform.position) < chargeUpRange)
         {
-            if (target.activeSelf && Vector3.Distance(transform.position, target.transform.position) <= chargeUpRange)
-            {
-                targetInRange = true;
-            }
+                ChargeUp();
         }
-        if (targetInRange)
+        else
         {
-            ChargeUp();
+            GetClosestTarget(enemy);
         }
 
 
@@ -72,12 +72,13 @@ public class AttackExplode : AttackStrategy
 
     public void Explode()
     {
-        //TODO: Boom.
-        
+        boom.Play();
+        Debug.Log("Boom!");
         //TODO: Code for dealing damage here.
         
         _isChargingExplosion = false;
         _isWindingDown = true;
+        chargeUpTimer.Stop();
         windDownTimer.Restart();
     } 
     
@@ -96,11 +97,7 @@ public class AttackExplode : AttackStrategy
             }
         } 
     }
-
-    public void StartChargeUp()
-    {
-        _isChargingExplosion = true;
-    }
+    
 
     public void EnableExplosion()
     {
